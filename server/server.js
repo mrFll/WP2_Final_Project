@@ -15,9 +15,7 @@ const conf = {
 
 const app = new koa();
 app.use(koaBody());
-app.use(Cors({
-    "Access-Control-Allow-Origin": "*"
-}));
+app.use(Cors());
 app.use(async (ctx, next) => {
     ctx.set('Access-Control-Allow-Origin', '*');
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -44,23 +42,23 @@ router.post('/signin',
             // Logs out a list of hobbits
             log(rows);
             if(rows.length !== 0){
-                log("Login successfully");
+                // if user's database send data that means user enter correct
+                log("Login successfully\n");
+                ctx.body = JSON.stringify(rows);
 
-                ctx.response.body = "hi"
-                ctx.response.ok = true;
-                ctx.response.status = 200;
-                ctx.is('application/json');
-
+                ctx.response.message= "ok";
+                ctx.status = 200;
+                log(ctx.response);
             }else{
-
-                log("can't login");
+                log("can't login\n");
                 ctx.response.body = JSON.stringify({
                     state: false
                 });
-                ctx.response.status = 200;
-                ctx.is('application/json');
+                ctx.status = 200;
+                log(ctx.response);
             }
         });
+         ctx.status = 200;
     }
 );
 

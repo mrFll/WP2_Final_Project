@@ -65,13 +65,13 @@ export default class loginPage extends Component{
             body: JSON.stringify(data),
             method: 'POST',
             headers: {
-            ContentType: 'application/json',
+                ContentType: 'application/json',
            }
         }).then((response) => {
-            console.log(response);
-            // TODO handle response from API
+            return response.body;
+        }).then((res) => {
+            console.log(res);
         }).catch((err) => {
-            console.log("----ERR---");
             console.error(err);
         });
 
